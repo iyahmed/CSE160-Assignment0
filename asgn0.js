@@ -31,6 +31,7 @@ function main() {
 * @return nothing
 */
 function drawVector(v, color) {
+  ctx.beginPath(); // This is needed for proper clearing 
   ctx.strokeStyle = color;
   ctx.moveTo(200, 200); // empirical, following computer coords
   ctx.lineTo(200 + (v[0] * 20), 200 - (v[1] * 20)); // empirical, following computer coords
@@ -41,17 +42,15 @@ function drawVector(v, color) {
  * @params nothing
  * @return nothing
  */
-function handleDrawEvent() { // TODO: FIX BROKEN CLEARING AFTER FIRST USE
-  // Clear and re-fill the black canvas
+function handleDrawEvent() {
+  // Clear and re-fill the black canvas before use
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = 'rgba(0, 0, 0, 1.0)'; // Set color to black
   ctx.fillRect(0, 0, 400, 400);
   // Create v1 from user input
   let v1 = new Vector3;
   v1[0] = document.getElementById("v1_x").valueAsNumber;
   v1[1] = document.getElementById("v1_y").valueAsNumber;
   v1[2] = 0;
-  console.log(v1[0]);
   // Draw v1 into the canvas
   drawVector(v1, "red");
 }
