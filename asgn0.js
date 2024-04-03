@@ -15,20 +15,13 @@ function main() {
   // Draw a black canvas
   ctx.fillStyle = 'rgba(0, 0, 0, 1.0)'; // Set color to black
   ctx.fillRect(0, 0, 400, 400);        // Fill a rectangle with the color
-  // Creates a vector v1 that will be red later on
-  /* let v1 = new Vector3(2.25, 2.25, 0);
-  v1[0] = 2.25;
-  v1[1] = 2.25;
-  v1[2] = 0;
-  // Drawing the red vector v1
-  drawVector(v1, "red");*/
 }
 
 /**
 * Draws from the center of the canvas to the input coordinates
-* @param v input vector
-* @param color input color
-* @return nothing
+* @param v (first input vector)
+* @param color (second input color)
+* @return (nothing)
 */
 function drawVector(v, color) {
   ctx.beginPath(); // This is needed for proper clearing 
@@ -38,9 +31,26 @@ function drawVector(v, color) {
   ctx.stroke();
 }
 
+/**
+ * Computes the angle between the two Vectors v1 and v2
+ * @param v1 (first input vector)
+ * @param v2 (second input vector)
+ * @return (nothing)
+ */
+function angleBetween(v1, v2) {
+  let numerator = Vector3.dot(v1, v2);
+  console.log("numerator: " + numerator);
+  let denominator = Vector3.dot(v1.normalize(), v2.normalize());
+  console.log("denominator: " + denominator);
+  let frac = numerator / denominator;
+  if (isNaN(frac) === true) {frac = 0;} // TODO: Double why this is needed because JS sets 0/0 to NaN, and in this case we need it to be 0 for the acos()
+  let angle = Math.acos(frac) * (180/Math.PI); // Need to fconvert from radians to degrees
+  console.log("Angle: " + angle);
+}
+
 /** On the press of the first draw button, clears and re-fills the black canvas and draws the v1 and v2 Vectors from user input
- * @params nothing
- * @return nothing
+ * @params (nothing)
+ * @return (nothing)
  */
 function handleDrawEvent() {
   // Clear and re-fill the black canvas before use
@@ -109,5 +119,7 @@ function handleDrawOperationEvent() {
     v4 = v2.normalize();
     drawVector(v3, "green");
     drawVector(v4, "green");
+  } else if (selector === "Angle Between") {
+    angleBetween(v1, v2);
   }
 }
