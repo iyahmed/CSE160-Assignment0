@@ -46,11 +46,15 @@ function handleDrawEvent() {
   // Clear and re-fill the black canvas before use
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillRect(0, 0, 400, 400);
-  // Create v1 from user input
+  // Create v1 and v2 from user input
   let v1 = new Vector3;
+  let v2 = new Vector3;
   v1[0] = document.getElementById("v1_x").valueAsNumber;
   v1[1] = document.getElementById("v1_y").valueAsNumber;
-  v1[2] = 0;
-  // Draw v1 into the canvas
+  v2[0] = document.getElementById("v2_x").valueAsNumber;
+  v2[1] = document.getElementById("v2_y").valueAsNumber;
+  v1[2], v2[2] = 0;
+  // Draw v1 and v2 into the canvas
   drawVector(v1, "red");
+  drawVector(v2, "blue");
 }
