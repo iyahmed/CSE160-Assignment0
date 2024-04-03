@@ -101,5 +101,13 @@ function handleDrawOperationEvent() {
     v4 = v2.div(scalar);
     drawVector(v3, "green");
     drawVector(v4, "green");
+  } else if (selector === "Magnitude") {
+    console.log("Magnitude v1: " + v1.magnitude());
+    console.log("Magnitude v2: " + v2.magnitude());
+  } else if (selector === "Normalize") {
+    v3 = v1.normalize();
+    v4 = v2.normalize();
+    drawVector(v3, "green");
+    drawVector(v4, "green");
   }
 }
