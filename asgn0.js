@@ -39,12 +39,10 @@ function drawVector(v, color) {
  */
 function angleBetween(v1, v2) {
   let numerator = Vector3.dot(v1, v2);
-  console.log("numerator: " + numerator);
   let denominator = Vector3.dot(v1.normalize(), v2.normalize());
-  console.log("denominator: " + denominator);
   let frac = numerator / denominator;
-  if (isNaN(frac) === true) { frac = 0; } // TODO: Doublecheck why this is needed because JS sets 0/0 to NaN, and in this case we need it to be 0 for the acos()
-  let angle = Math.acos(frac) * (180 / Math.PI); // Need to fconvert from radians to degrees
+  if (isNaN(frac) === true) { frac = 0; } // Need it to be 0 for the acos()
+  let angle = Math.acos(frac) * (180 / Math.PI); // Need it to convert from radians to degrees
   console.log("Angle: " + angle);
 }
 
@@ -54,12 +52,11 @@ function angleBetween(v1, v2) {
  * @param v2 (second input vector)
  * @return (nothing)
  */
-function areaTriangle(v1, v2) { // TODO: Figure out why the 3rd element is always invalid
+function areaTriangle(v1, v2) {
   let cross = Vector3.cross(v1, v2);
-  let normal = cross.normalize();
-  let paralleogram = normal.div(2);
-  console.log("a" + JSON.stringify(paralleogram));
-  let area = (paralleogram.elements[0] + paralleogram.elements[1]) / 2;
+  let parallelogram = cross.magnitude();
+  let area = parallelogram / 2;
+
   console.log("Area of the triangle: " + area);
 }
 /** On the press of the first draw button, clears and re-fills the black canvas and draws the v1 and v2 Vectors from user input
