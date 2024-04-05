@@ -27,7 +27,7 @@ function drawVector(v, color) {
   ctx.beginPath(); // This is needed for proper clearing 
   ctx.strokeStyle = color;
   ctx.moveTo(200, 200); // empirical, following computer coords
-  ctx.lineTo(200 + (v[0] * 20), 200 - (v[1] * 20)); // empirical, following computer coords
+  ctx.lineTo(200 + (v.elements[0] * 20), 200 - (v.elements[1] * 20)); // empirical, following computer coords
   ctx.stroke();
 }
 
@@ -43,8 +43,8 @@ function angleBetween(v1, v2) {
   let denominator = Vector3.dot(v1.normalize(), v2.normalize());
   console.log("denominator: " + denominator);
   let frac = numerator / denominator;
-  if (isNaN(frac) === true) {frac = 0;} // TODO: Doublecheck why this is needed because JS sets 0/0 to NaN, and in this case we need it to be 0 for the acos()
-  let angle = Math.acos(frac) * (180/Math.PI); // Need to fconvert from radians to degrees
+  if (isNaN(frac) === true) { frac = 0; } // TODO: Doublecheck why this is needed because JS sets 0/0 to NaN, and in this case we need it to be 0 for the acos()
+  let angle = Math.acos(frac) * (180 / Math.PI); // Need to fconvert from radians to degrees
   console.log("Angle: " + angle);
 }
 
@@ -71,13 +71,13 @@ function handleDrawEvent() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillRect(0, 0, 400, 400);
   // Create v1 and v2 from user input
-  let v1 = new Vector3([0,0,0]);
-  let v2 = new Vector3([0,0,0]);
-  v1[0] = document.getElementById("v1_x").valueAsNumber;
-  v1[1] = document.getElementById("v1_y").valueAsNumber;
-  v2[0] = document.getElementById("v2_x").valueAsNumber;
-  v2[1] = document.getElementById("v2_y").valueAsNumber;
-  v1[2], v2[2] = 0;
+  let v1 = new Vector3([0, 0, 0]);
+  let v2 = new Vector3([0, 0, 0]);
+  v1.elements[0] = document.getElementById("v1_x").valueAsNumber;
+  v1.elements[1] = document.getElementById("v1_y").valueAsNumber;
+  v2.elements[0] = document.getElementById("v2_x").valueAsNumber;
+  v2.elements[1] = document.getElementById("v2_y").valueAsNumber;
+  v1.elements[2], v2.elements[2] = 0;
   // Draw v1 and v2 into the canvas
   drawVector(v1, "red");
   drawVector(v2, "blue");
@@ -85,7 +85,7 @@ function handleDrawEvent() {
   handleDrawOperationEvent();
 }
 
-/** On the press of the second draw button, clears and re-fills the black canvas and computer mathematical operations on the v1 and v2 Vectors from user input
+/** On the press of the second draw button, clears and re-fills the black canvas and compute mathematical operations on the v1 and v2 Vectors from user input
  * @params nothing
  * @return nothing
  */
@@ -94,21 +94,21 @@ function handleDrawOperationEvent() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillRect(0, 0, 400, 400);
   // Create v1 and v2 from user input
-  let v1 = new Vector3([0,0,0]);
-  let v2 = new Vector3([0,0,0]);
-  v1[0] = document.getElementById("v1_x").valueAsNumber;
-  v1[1] = document.getElementById("v1_y").valueAsNumber;
-  v2[0] = document.getElementById("v2_x").valueAsNumber;
-  v2[1] = document.getElementById("v2_y").valueAsNumber;
-  v1[2], v2[2] = 0;
+  let v1 = new Vector3([0, 0, 0]);
+  let v2 = new Vector3([0, 0, 0]);
+  v1.elements[0] = document.getElementById("v1_x").valueAsNumber;
+  v1.elements[1] = document.getElementById("v1_y").valueAsNumber;
+  v2.elements[0] = document.getElementById("v2_x").valueAsNumber;
+  v2.elements[1] = document.getElementById("v2_y").valueAsNumber;
+  v1.elements[2], v2.elements[2] = 0;
   // Draw v1 and v2 into the canvas
   drawVector(v1, "red");
   drawVector(v2, "blue");
   // Calls the correct Vector3 operation based off the values of the selector and scalar (+, -, *, /)
-  let v3 = new Vector3([0,0,0]);
-  let v4 = new Vector3([0,0,0]);
+  let v3 = new Vector3([0, 0, 0]);
+  let v4 = new Vector3([0, 0, 0]);
   let selector = document.getElementById("operation_selector").value;
-  let scalar = document.getElementById("operation_scalar").value; 
+  let scalar = document.getElementById("operation_scalar").value;
   if (selector === "Add") {
     v3 = v1.add(v2);
     drawVector(v3, "green");
